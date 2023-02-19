@@ -55,6 +55,6 @@ search(cityInputElement.value);
 
 }
 
-search("New York");
+search("Kyiv");
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
