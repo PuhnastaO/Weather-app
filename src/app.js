@@ -13,14 +13,15 @@ let days = ["Sunday","Monday", "Tuesday", "Wednesday","Thursday","Friday","Satur
 let day = days[date.getDay()];
 return `${day} ${hours}:${minutes}`;
 }
-function displayForecast(){
-  let forecastElement=document.querySelector("#forecast");
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class = "row">`;
-  let days =["Thu","Fri","Sat","Sun"];
-  days.forEach(function(day){
-forecastHTML =
-  forecastHTML +
-  `
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
 
                   <div class="col-2">
                     <div class ="weather-forecast-date">
@@ -36,15 +37,20 @@ forecastHTML =
                 
                 </div>
               `;
-  })
- 
-  
+  });
+
   forecastHTML = forecastHTML + `</div>`;
-   forecastElement.innerHTML=forecastHTML;
+  forecastElement.innerHTML = forecastHTML;
 }
 //used temp el as a global var
 let temperatureElement = document.querySelector("#temperature");
 
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "2ff29bed3181c3526c35cc5408037f85";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
 
 function displayTemperature(response){
 //console.log(response.data);
@@ -69,6 +75,7 @@ dateElement.innerHTML = formatDate(response.data.dt*1000);
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -118,4 +125,3 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 
 search("Kyiv");
-displayForecast();
