@@ -118,6 +118,15 @@ let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
 celsiusLink.classList.remove("active");
 fahrenheitLink.classList.add("active");
 temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+let limTemps = document.querySelectorAll(
+  ".weather-forecast-temp-min,.weather-forecast-temp-max"
+);
+for(index in limTemps){
+
+ let currentTemperature= limTemps[index].innerHTML.replace("°","");
+ let newTemperature = (currentTemperature * 9) / 5 + 32;
+ limTemps[index].innerHTML = Math.round(newTemperature) + "°";
+}
 }
 
 function displayCelsiusTemperature(event) {
@@ -126,6 +135,14 @@ function displayCelsiusTemperature(event) {
   fahrenheitLink.classList.remove("active");
     celsiusLink.classList.add("active");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  let limTemps = document.querySelectorAll(
+    ".weather-forecast-temp-min,.weather-forecast-temp-max"
+  );
+  for (index in limTemps) {
+    let currentTemperature = limTemps[index].innerHTML.replace("°", "");
+    let newTemperature = (currentTemperature -32)* 5/9;
+    limTemps[index].innerHTML = Math.round(newTemperature) + "°";
+  }
 }
 
 let celsiusTemperature = null;
