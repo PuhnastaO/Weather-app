@@ -121,12 +121,12 @@ temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 let limTemps = document.querySelectorAll(
   ".weather-forecast-temp-min,.weather-forecast-temp-max"
 );
-for(index in limTemps){
+limTemps.forEach(function(limTemp){
+  let currentTemperature = limTemp.innerHTML.replace("°", "");
+  let newTemperature = (currentTemperature * 9) / 5 + 32;
+  limTemp.innerHTML = Math.round(newTemperature) + "°";
+})
 
- let currentTemperature= limTemps[index].innerHTML.replace("°","");
- let newTemperature = (currentTemperature * 9) / 5 + 32;
- limTemps[index].innerHTML = Math.round(newTemperature) + "°";
-}
 }
 
 function displayCelsiusTemperature(event) {
@@ -138,11 +138,12 @@ function displayCelsiusTemperature(event) {
   let limTemps = document.querySelectorAll(
     ".weather-forecast-temp-min,.weather-forecast-temp-max"
   );
-  for (index in limTemps) {
-    let currentTemperature = limTemps[index].innerHTML.replace("°", "");
-    let newTemperature = (currentTemperature -32)* 5/9;
-    limTemps[index].innerHTML = Math.round(newTemperature) + "°";
-  }
+  limTemps.forEach(function (limTemp) {
+    let currentTemperature = limTemp.innerHTML.replace("°", "");
+    let newTemperature = ((currentTemperature - 32) * 5) / 9;
+    limTemp.innerHTML = Math.round(newTemperature) + "°";
+  });
+  
 }
 
 let celsiusTemperature = null;
